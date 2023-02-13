@@ -1,0 +1,324 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://jobs-api-v1.vercel.app/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters:
+        - name: X-Group-ID
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 5d416f71e0c5b
+        - name: X-User-ID
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: admin
+        - name: X-User-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: ff45d4c1d593f3c0d9552bef3a6609a4
+        - name: X-Hmac
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: c5d3edb994736f135bbc991df7154bb088e65c80
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/RegisterUserRequest'
+                - example:
+                    name: Serhat 2
+                    email: serhatcan2@gmail.com
+                    password: serhat12345
+            example:
+              name: Serhat 2
+              email: serhatcan2@gmail.com
+              password: serhat12345
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters:
+        - name: X-Group-ID
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 5d416f71e0c5b
+        - name: X-User-ID
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: admin
+        - name: X-User-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: ff45d4c1d593f3c0d9552bef3a6609a4
+        - name: X-Hmac
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: c5d3edb994736f135bbc991df7154bb088e65c80
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/LoginUserRequest'
+                - example:
+                    email: serhatcan1996@gmail.com
+                    password: serhat123
+            example:
+              email: serhatcan1996@gmail.com
+              password: serhat123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+  /jobs:
+    post:
+      tags:
+        - Jobs
+      summary: Create Job
+      operationId: CreateJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateJobRequest'
+                - example:
+                    company: netflix
+                    position: backend developer
+            example:
+              company: netflix
+              position: backend developer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+    get:
+      tags:
+        - Jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job ID
+    get:
+      tags:
+        - Jobs
+      summary: Get Single Job
+      operationId: GetSingleJob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+    patch:
+      tags:
+        - Jobs
+      summary: Update Job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateJobRequest'
+                - example:
+                    company: stripe
+                    position: Software Engineer
+            example:
+              company: stripe
+              position: Software Engineer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+    delete:
+      tags:
+        - Jobs
+      summary: Delete Job
+      operationId: DeleteJob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+      servers:
+        - url: https://jobs-api-v1.vercel.app/api/v1
+          variables: {}
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Serhat 2
+        email: serhatcan2@gmail.com
+        password: serhat12345
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: serhatcan1996@gmail.com
+        password: serhat123
+    CreateJobRequest:
+      title: CreateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: netflix
+        position: backend developer
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: stripe
+        position: Software Engineer
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ''
+  - name: Jobs
+    description: ''
